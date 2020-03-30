@@ -24,6 +24,7 @@ express framework를 올려 해결
 - passport-local : 회원가입, 로그인 관리
 - sequelize
 - sequelize-cli
+- mysql2
 
 `--save-dev`
 
@@ -34,11 +35,11 @@ express framework를 올려 해결
 
 ## Method
 
-GET
-POST
-PUT : 전체 수정
-PATCH : 부분 수정
+GET  
+POST  
+PUT : 전체 수정  
+PATCH : 부분 수정  
 DELETE
 
-http port: 80
+http port: 80  
 https port: 443

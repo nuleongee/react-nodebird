@@ -1,6 +1,8 @@
 const express = require("express");
+const db = require("./models");
 
 const app = express(); // app 객체 생성
+db.sequelize.sync();
 
 // 주소 설정
 app.get("/", (req, res) => {
