@@ -43,3 +43,18 @@ DELETE
 
 http port: 80  
 https port: 443
+
+## sequelize
+
+    $ npx sequlize init
+
+## Response Status
+
+- 200 : 성공
+- 300 : 리다이렉션
+- 400 : 요청 오류
+- 500 : 서버 오류
+
+* 401 : Unauthorized
+* 403 : Forbidden
+* 404 : Not Found
