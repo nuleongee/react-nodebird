@@ -8,6 +8,7 @@ router.get('/', (req, res) => {
   // /api/user
 });
 router.post('/', async (req, res, next) => {
+  console.log(req.body);
   // POST /api/user 회원가입
   try {
     const exUser = await db.User.findOne({

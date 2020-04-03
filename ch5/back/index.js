@@ -4,6 +4,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const expressSession = require('express-session');
 const dotenv = require('dotenv');
+const passport = require('passport');
 
 const db = require('./models');
 const userAPIRouter = require('./routes/user');
@@ -31,6 +32,8 @@ app.use(
     },
   }),
 );
+app.use(passport.initialize());
+app.use(passport.session()); // passport.session()은 expressSession() 아래에 적어야 함1
 
 // API는 다른 서비스가 내 서비스의 기능을 실행할 수 있게 열어둔 창구
 app.use('/api/user', userAPIRouter);
