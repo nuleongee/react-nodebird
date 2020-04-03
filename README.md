@@ -39,7 +39,8 @@ GET
 POST  
 PUT : 전체 수정  
 PATCH : 부분 수정  
-DELETE
+DELETE  
+OPTIONS  
 
 http port: 80  
 https port: 443

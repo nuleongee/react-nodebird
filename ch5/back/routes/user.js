@@ -4,10 +4,10 @@ const db = require('../models');
 
 const router = express.Router();
 
-app.get('/', (req, res) => {
+router.get('/', (req, res) => {
   // /api/user
 });
-app.post('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   // POST /api/user 회원가입
   try {
     const exUser = await db.User.findOne({
@@ -33,13 +33,13 @@ app.post('/', async (req, res, next) => {
     return next(e);
   }
 });
-app.get('/:id', (req, res) => {});
-app.post('/logout', (req, res) => {});
-app.post('/login', (req, res) => {});
-app.get('/:id/folow', (req, res) => {});
-app.post('/:id/follow', (req, res) => {});
-app.delete('/:id/follow', (req, res) => {});
-app.delete('/:id/follower', (req, res) => {});
-app.get('/:id/posts', (req, res) => {});
+router.get('/:id', (req, res) => {});
+router.post('/logout', (req, res) => {});
+router.post('/login', (req, res) => {});
+router.get('/:id/folow', (req, res) => {});
+router.post('/:id/follow', (req, res) => {});
+router.delete('/:id/follow', (req, res) => {});
+router.delete('/:id/follower', (req, res) => {});
+router.get('/:id/posts', (req, res) => {});
 
 module.exports = router;
