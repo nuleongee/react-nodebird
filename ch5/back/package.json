@@ -33,9 +33,14 @@
     "nodemon": "^2.0.2"
   },
   "prettier": {
-    "tabWidth": 2,
-    "printWidth": 80,
+    "jsxBracketSameLine": false,
+    "jsxSingleQuote": true,
     "singleQuote": true,
-    "trailingComma": "all"
+    "trailingComma": "es5",
+    "useTabs": false,
+    "printWidth": 100,
+    "semi": true,
+    "arrowParens": "avoid",
+    "tabWidth": 2
   }
 }

@@ -6,6 +6,7 @@ const expressSession = require('express-session');
 const dotenv = require('dotenv');
 const passport = require('passport');
 
+const passportConfig = require('./passport');
 const db = require('./models');
 const userAPIRouter = require('./routes/user');
 const postAPIRouter = require('./routes/post');
@@ -14,6 +15,7 @@ const postsAPIRouter = require('./routes/posts');
 dotenv.config();
 const app = express(); // app 객체 생성
 db.sequelize.sync();
+passportConfig();
 
 app.use(morgan('dev'));
 // req.body 정상 작동을 위한 코드
@@ -30,7 +32,7 @@ app.use(
       httpOnly: true,
       secure: false, // https를 쓸 때 true
     },
-  }),
+  })
 );
 app.use(passport.initialize());
 app.use(passport.session()); // passport.session()은 expressSession() 아래에 적어야 함1
