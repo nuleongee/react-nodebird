@@ -21,7 +21,12 @@ app.use(morgan('dev'));
 // req.body 정상 작동을 위한 코드
 app.use(express.json()); // json 형식 데이터 처리
 app.use(express.urlencoded({ extended: true })); // form 형식 데이터 처리
-app.use(cors());
+app.use(
+  cors({
+    origin: true, // 요청 주소 (or http://localhost:3000)
+    credentials: true, // 쿠키 교환
+  })
+);
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   expressSession({
@@ -32,6 +37,7 @@ app.use(
       httpOnly: true,
       secure: false, // https를 쓸 때 true
     },
+    name: 'rnbck',
   })
 );
 app.use(passport.initialize());
