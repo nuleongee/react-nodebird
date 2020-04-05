@@ -38,9 +38,6 @@ router.post('/', async (req, res, next) => {
 router.get('/:id', (req, res) => {
   // 남의 정보 가져오는 것 ex) /3
 });
-router.post('/logout', (req, res) => {
-  // /api/user/logout
-});
 router.post('/login', (req, res, next) => {
   // POST /api/user/login
   passport.authenticate('local', (err, user, info) => {
@@ -55,11 +52,18 @@ router.post('/login', (req, res, next) => {
       if (loginErr) {
         return next(loginErr);
       }
-      const filteredUser = Object.assign({}, user); // 얕은 복사
+      // console.log('login success', req.user);
+      const filteredUser = Object.assign({}, user.toJSON()); // 얕은 복사
       delete filteredUser.password;
       return res.json(filteredUser);
     });
   })(req, res, next);
+});
+router.post('/logout', (req, res) => {
+  // /api/user/logout
+  req.logout();
+  req.session.destroy();
+  res.send('logout 성공');
 });
 router.get('/:id/folow', (req, res) => {
   // /api/user/:id/follow
