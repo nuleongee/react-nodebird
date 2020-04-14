@@ -14,19 +14,20 @@ const postsAPIRouter = require('./routes/posts');
 
 dotenv.config();
 const app = express(); // app 객체 생성
-db.sequelize.sync();
+db.sequelize.sync({ force: true });
 passportConfig();
 
 app.use(morgan('dev'));
-// req.body 정상 작동을 위한 코드
-app.use(express.json()); // json 형식 데이터 처리
-app.use(express.urlencoded({ extended: true })); // form 형식 데이터 처리
 app.use(
   cors({
     origin: true, // 요청 주소 (or http://localhost:3000)
     credentials: true, // 쿠키 교환
   })
 );
+// req.body 정상 작동을 위한 코드
+app.use(express.json()); // json 형식 데이터 처리
+app.use(express.urlencoded({ extended: true })); // form 형식 데이터 처리
+
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
   expressSession({

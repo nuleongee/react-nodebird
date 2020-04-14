@@ -26,8 +26,12 @@ router.post('/', async (req, res, next) => {
       userId: req.body.userId,
       password: hashedPassword,
     });
-    console.log(newUser);
-    return res.status(200).json(newUser);
+    console.log('newUser', newUser);
+    // const exPwUser = { ...newUser };
+    // console.log('exPwUser', exPwUser);
+    const exPwUser = Object.assign({}, newUser.toJSON());
+    delete exPwUser.password;
+    return res.status(200).json(exPwUser);
   } catch (e) {
     console.error(e);
     // return res.status(403).send(e);
@@ -48,14 +52,41 @@ router.post('/login', (req, res, next) => {
     if (info) {
       return res.status(401).send(info.reason);
     }
-    return req.login(user, loginErr => {
-      if (loginErr) {
-        return next(loginErr);
+    return req.login(user, async loginErr => {
+      try {
+        if (loginErr) {
+          return next(loginErr);
+        }
+        // console.log('login success', req.user);
+        // const filteredUser = Object.assign({}, user.toJSON()); // 얕은 복사
+        // delete filteredUser.password;
+        // return res.json(filteredUser);
+        const fullUser = await db.User.findOne({
+          where: { id: user.id },
+          include: [
+            {
+              model: db.Post,
+              as: 'Posts',
+              attributes: ['id'],
+            },
+            {
+              model: db.User,
+              as: 'Followings',
+              attributes: ['id'],
+            },
+            {
+              model: db.User,
+              as: 'Followers',
+              attributes: ['id'],
+            },
+          ],
+          attributes: ['id', 'nickname', 'userId'],
+        });
+        console.log(fullUser);
+        return res.json(fullUser);
+      } catch (e) {
+        next(e);
       }
-      // console.log('login success', req.user);
-      const filteredUser = Object.assign({}, user.toJSON()); // 얕은 복사
-      delete filteredUser.password;
-      return res.json(filteredUser);
     });
   })(req, res, next);
 });
